@@ -4,7 +4,7 @@ class TrieNode {
     // Initialize your data structure here.
     public char label;
     public boolean leaf = false;
-    public Map<Character, TrieNode> children = new HashMap<Character, TrieNode> ();
+    public TrieNode[] children = new TrieNode[26];
 
     public TrieNode() {}
     public TrieNode(char label) {
@@ -25,8 +25,8 @@ public class Trie {
         int i, size = word.length();
 
         for (i = 0; i < size; i++) {
-            if (node.children.containsKey(word.charAt(i)) == true) node = node.children.get(word.charAt(i));
-            else break;
+            if (node.children[word.charAt(i) - 'a'] == null) break;
+            else node = node.children[word.charAt(i) - 'a'];
         }
 
         return i;
@@ -34,14 +34,12 @@ public class Trie {
 
     // Inserts a word into the trie.
     public void insert(String word) {
-        if (word == null) return;
-
         node = root;
         int i, size = word.length();
 
         for (i = find(word); i < size; i++) {
-            node.children.put(word.charAt(i), new TrieNode(word.charAt(i)));
-            node = node.children.get(word.charAt(i));
+            node.children[word.charAt(i) - 'a'] = new TrieNode(word.charAt(i));
+            node = node.children[word.charAt(i) - 'a'];
         }
 
         node.leaf = true;
@@ -49,8 +47,6 @@ public class Trie {
 
     // Returns if the word is in the trie.
     public boolean search(String word) {
-        if (word == null) return false;
-
         node = root;
 
         if (find(word) == word.length() && node.leaf == true) return true;
@@ -60,8 +56,6 @@ public class Trie {
     // Returns if there is any word in the trie
     // that starts with the given prefix.
     public boolean startsWith(String prefix) {
-        if (prefix == null) return false;
-
         node = root;
 
         if (find(prefix) == prefix.length()) return true;
