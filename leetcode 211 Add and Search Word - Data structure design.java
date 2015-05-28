@@ -4,7 +4,6 @@ public class WordDictionary {
 
     public class Node {
 
-        char label;
         boolean last = false;
         Node[] children = new Node[26];
     }
