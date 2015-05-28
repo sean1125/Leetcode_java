@@ -33,6 +33,7 @@ public class WordDictionary {
     }
 
     public boolean search(String word, Node run, int index) {
+
         if (index == word.length()) return run.last == true ? true : false;
 
         Node next;
