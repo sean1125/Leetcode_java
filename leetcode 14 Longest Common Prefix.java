@@ -2,6 +2,7 @@
 
 public class Solution {
     public String longestCommonPrefix(String[] strs) {
+
         int size = strs.length, i, j;
         int[] sizes = new int[size];
         String result = "";
